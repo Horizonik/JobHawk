@@ -1,0 +1,10 @@
+{% extends "display/base.html" %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "display/search_page_style.css" %}">
+{% endblock %}
+
+{% block content %}
+<h1>{{ section.title }}</h1>
+{% endblock %}

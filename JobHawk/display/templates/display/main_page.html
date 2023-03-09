@@ -1,0 +1,14 @@
+{% extends "display/base.html" %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "display/main_page_style.css" %}">
+{% endblock %}
+
+{% block content %}
+<h1>{{ section.title|default:"Main" }}</h1>
+
+<button type="button" value="Start Here">
+    <a href="search_page.html"></a>
+</button>
+{% endblock %}

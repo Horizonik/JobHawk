@@ -1,0 +1,42 @@
+:root {
+  --primary-color: #ee893a;
+  --secondary-color: #db7a2e;
+  --background-color: #0e0e0e;
+
+  --strong-text-color: #ffffff;
+  --weak-text-color: #f1f1f1;
+}
+
+html {
+  background: var(--background-color);
+
+}
+
+/* Text Colouring */
+h1, h2, h3 {
+  color: var(--strong-text-color);
+  font-family: "Calibri", "sans-serif";
+}
+
+p, div, label, span, h4, h5, h6 {
+  color: var(--weak-text-color);
+  font-family: "Calibri Light", "sans-serif";
+}
+
+/* Sub-text size */
+p, div, label, span {
+  font-size: 16px;
+}
+
+/* Shrink text size for small screens */
+@media only screen and (max-width: 600px) {
+    p, div, label, span {
+    font-size: 12px;
+  }
+}
+
+
+/* Text global modifications */
+h1, h2, h3, h4, h5, h6, p, div, label, span {
+  text-align: left;
+}
