@@ -1,0 +1,70 @@
+/* Set up the layout */
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+section {
+    box-sizing: border-box;
+    height: 100%;
+    padding: 1em;
+    width: 100%;
+}
+
+/* Set up the sizes of the sections */
+section:first-child {
+    flex: 0 0 33%;
+}
+
+section:last-child {
+    flex: 1 0 66%;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+
+    section:first-child {
+        flex: 0 0 auto;
+    }
+
+    section:last-child {
+        flex: 1 0 auto;
+    }
+}
+
+/* Redirect to search page button */
+.search-btn {
+    display: flex;
+    justify-content: center;
+    line-height: 1em;
+    max-width: 100%;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: 400ms;
+
+    background-color: var(--primary-color);
+    padding: 16px 24px;
+    border-radius: 6px;
+    font-size: 20px;
+}
+
+.search-btn:hover {
+    background: var(--lighter-primary-color);
+}

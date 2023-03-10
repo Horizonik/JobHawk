@@ -7,7 +7,7 @@ from .forms import SearchForm
 
 # Create your views here.
 class MainPage(TemplateView):
-    template_name = 'display/main_page.html'
+    template_name = 'display/gpt.html'
 
 
 class SearchPage(View):
