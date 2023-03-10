@@ -3,12 +3,33 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{% static "display/main_page_style.css" %}">
+    <script src="/display/javascript/input.js"></script>
 {% endblock %}
 
 {% block content %}
-<h1>{{ section.title|default:"Main" }}</h1>
+    <header>
+        <!-- header content -->
+    </header>
+    <main>
+        <section>
+            <!-- 1/3 content -->
+            <div class="center-box">
+                <div class="content-box">
+                    <h1>JobHawk</h1>
+                    <p>AI powered job search</p>
+                    <br/>
+                    <div class="center-box">
+                        <a href="search" class="search-btn" role="button">Start Searching</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <!-- 2/3 content -->
 
-<button type="button" value="Start Here">
-    <a href="search_page.html"></a>
-</button>
+        </section>
+    </main>
+    <footer>
+        <!-- footer content -->
+    </footer>
 {% endblock %}

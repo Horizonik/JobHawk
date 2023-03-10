@@ -1,0 +1,118 @@
+{% extends "display/base.html" %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "display/main_page_style.css" %}">
+    <script src="/display/javascript/input.js"></script>
+{% endblock %}
+
+{% block content %}
+    <header>
+        <!-- header content -->
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">JobHawk</a>
+                <ul class="menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <!-- 1/3 content -->
+            <div class="container">
+                <h1>Find Your Dream Job with JobHawk</h1>
+                <form>
+                    <input type="text" placeholder="Enter Job Title or Keywords">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </section>
+        <section class="features">
+            <!-- 2/3 content -->
+            <div class="container">
+                <h2>Why Choose JobHawk?</h2>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <img src="icons/fast.png" alt="fast_icon">
+                        <h3>Fast Results</h3>
+                        <p>Get job recommendations instantly with our AI-powered system.</p>
+                    </div>
+                    <div class="feature-item">
+                        <img src="icons/accurate.png" alt="accurate_icon">
+                        <h3>Accurate Results</h3>
+                        <p>Our system matches you with the most relevant job openings based on your skills and
+                            experience.</p>
+                    </div>
+                    <div class="feature-item">
+                        <img src="icons/easy.png" alt="easy_icon">
+                        <h3>Easy to Use</h3>
+                        <p>Our simple and intuitive interface makes job searching a breeze.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <!-- footer content -->
+        <div class="container">
+            <p>&copy; 2023 JobHawk. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    {#    <header>#}
+    {#        <div class="container">#}
+    {#            <nav>#}
+    {#                <a href="#" class="logo">JobHawk</a>#}
+    {#                <ul class="menu">#}
+    {#                    <li><a href="#">Home</a></li>#}
+    {#                    <li><a href="#">About Us</a></li>#}
+    {#                    <li><a href="#">Contact</a></li>#}
+    {#                </ul>#}
+    {#            </nav>#}
+    {#        </div>#}
+    {#    </header>#}
+    {#    <main>#}
+    {#        <section class="hero">#}
+    {#            <div class="container">#}
+    {#                <h1>Find Your Dream Job with JobHawk</h1>#}
+    {#                <form>#}
+    {#                    <input type="text" placeholder="Enter Job Title or Keywords">#}
+    {#                    <button type="submit">Search</button>#}
+    {#                </form>#}
+    {#            </div>#}
+    {#        </section>#}
+    {#        <section class="features">#}
+    {#            <div class="container">#}
+    {#                <h2>Why Choose JobHawk?</h2>#}
+    {#                <div class="feature-list">#}
+    {#                    <div class="feature-item">#}
+    {#                        <img src="icons/fast.png" alt="fast_icon">#}
+    {#                        <h3>Fast Results</h3>#}
+    {#                        <p>Get job recommendations instantly with our AI-powered system.</p>#}
+    {#                    </div>#}
+    {#                    <div class="feature-item">#}
+    {#                        <img src="icons/accurate.png" alt="accurate_icon">#}
+    {#                        <h3>Accurate Results</h3>#}
+    {#                        <p>Our system matches you with the most relevant job openings based on your skills and#}
+    {#                            experience.</p>#}
+    {#                    </div>#}
+    {#                    <div class="feature-item">#}
+    {#                        <img src="icons/easy.png" alt="easy_icon">#}
+    {#                        <h3>Easy to Use</h3>#}
+    {#                        <p>Our simple and intuitive interface makes job searching a breeze.</p>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </section>#}
+    {#    </main>#}
+    {#    <footer>#}
+    {#        <div class="container">#}
+    {#            <p>&copy; 2023 JobHawk. All rights reserved.</p>#}
+    {#        </div>#}
+    {#    </footer>#}
+{% endblock %}

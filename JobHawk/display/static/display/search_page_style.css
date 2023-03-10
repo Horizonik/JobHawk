@@ -1,5 +1,43 @@
+/* input field */
+.input-wrapper {
+    position: relative;
+    background: rgba(255, 255, 255, .04);
+
+    height: 40px;
+    width: 460px;
+
+    border-radius: 40px;
+    padding: 10px;
+    transition: all 0.3s;
+    overflow: hidden; /* added overflow property */
+}
+
+.input-wrapper:hover, .input-wrapper:focus-within {
+    background: rgba(255, 255, 255, .06);
+    height: 40px;
+    width: 500px;
+}
+
 .search-input {
-    padding: 5px;
-    font-size: 18px;
-    color: var(--strong-text-color);
+    border: none;
+    background: none;
+    outline: none;
+
+    float: left;
+    padding: 0;
+    line-height: inherit;
+
+    color: white;
+    font-size: 20px;
+    text-transform: capitalize;
+
+    height: 0; /* changed width property to height */
+    width: 800px;
+
+    transition: 0.2s;
+}
+
+.input-wrapper:hover > .search-input, .search-input:focus {
+    height: 25px;
+    padding: 6px 20px;
 }
