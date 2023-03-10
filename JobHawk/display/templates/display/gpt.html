@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{% static "display/main_page_style.css" %}">
     <script src="/display/javascript/input.js"></script>
 {% endblock %}
 
@@ -13,9 +12,9 @@
             <nav>
                 <a href="#" class="logo">JobHawk</a>
                 <ul class="menu">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -26,7 +25,8 @@
             <div class="container">
                 <h1>Find Your Dream Job with JobHawk</h1>
                 <form>
-                    <input type="text" placeholder="Enter Job Title or Keywords">
+                    <label for="search-input"></label>
+                    <input id="search-input" class="search-input" type="text" placeholder="Enter job Title or keywords">
                     <button type="submit">Search</button>
                 </form>
             </div>
