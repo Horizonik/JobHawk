@@ -6,26 +6,27 @@
 {% endblock %}
 
 {% block content %}
-    <header>
-        <!-- header content -->
-    </header>
     <main>
-        <section>
-            <!-- 1/3 content -->
-            <div class="center-box">
-                <h1>What is your job description?</h1>
-                <div class="input-wrapper">
-                    <label for="search-input"></label><input id="search-input" class="search-input" type="text" placeholder="Search..">
-                </div>
+        <section class="top-searchbar">
+            <div class="container">
+                <form>
+                    <label for="search-input"></label>
+                    <input id="search-input" class="search-input" type="text" placeholder="Enter job Title or keywords">
+                    <button type="submit"><img src="{% static 'display/icons/magnifying_glass.png' %}" alt="Search">
+                    </button>
+                </form>
             </div>
-
-
         </section>
-        <section>
-            <!-- 2/3 content -->
+        <section class="results">
+            <div class="container">
+                <ul>
+                    {% for city in object_list %}
+                        <li>
+                            {{ city.name }}, {{ city.state }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </section>
     </main>
-    <footer>
-        <!-- footer content -->
-    </footer>
 {% endblock %}

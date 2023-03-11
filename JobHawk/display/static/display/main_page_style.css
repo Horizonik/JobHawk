@@ -1,70 +1,74 @@
-/* Set up the layout */
-body {
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.menu {
     display: flex;
-    flex-direction: column;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
 }
 
-main {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    overflow: hidden;
+.menu li {
+    list-style: none;
 }
 
-section {
-    box-sizing: border-box;
-    height: 100%;
-    padding: 1em;
-    width: 100%;
+.menu li a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--weak-text-color);
+    text-decoration: none;
 }
 
-/* Set up the sizes of the sections */
-section:first-child {
-    flex: 0 0 33%;
+.menu li a:hover {
+    color: var(--accent-color);
 }
 
-section:last-child {
-    flex: 1 0 66%;
-}
-
-/* Responsive styles */
-@media (max-width: 768px) {
-    main {
-        flex-direction: column;
-    }
-
-    section:first-child {
-        flex: 0 0 auto;
-    }
-
-    section:last-child {
-        flex: 1 0 auto;
-    }
-}
-
-/* Redirect to search page button */
-.search-btn {
+/* Hero Section */
+.hero {
+    /*background-image: url('hero-bg.jpg');*/
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
     display: flex;
     justify-content: center;
-    line-height: 1em;
-    max-width: 100%;
-    text-decoration: none;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: 400ms;
-
-    background-color: var(--primary-color);
-    padding: 16px 24px;
-    border-radius: 6px;
-    font-size: 20px;
+    align-items: center;
 }
 
-.search-btn:hover {
-    background: var(--lighter-primary-color);
+.hero h1 {
+    font-size: 3.7rem;
+    text-align: center;
+    color: var(--strong-text-color);
+    margin-bottom: 2rem;
+}
+
+.hero form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Features Section */
+.features {
+    background-color: var(--light-bg-color);
+    padding: 3rem 0;
+}
+
+.features h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.feature-list {
+    display: flex;
+    justify-content: space-around;
+}
+
+.feature-item {
+    text-align: center;
+    max-width: 350px;
+}
+
+.feature-item img {
+    height: 120px;
+    margin-bottom: 2rem;
 }

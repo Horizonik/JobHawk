@@ -1,82 +1,26 @@
+/* Define variables for repeated colors and spacing */
+@font-face {
+    font-family: "Montserrat";
+    src: url('../display/fonts/Montserrat-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "Montserrat Light";
+    src: url('../display/fonts/Montserrat-Light.ttf') format('truetype');
+}
+
 :root {
-    --bg-color: #141414;
-    --header-bg-color: #1a1a1a;
-    --header-bg-color-alt: #242424;
+    --primary-color: #00f088;
+    --accent-color: #12c87b;
+    --dark-bg-color: #1c1c1c;
+    --light-bg-color: #282828;
 
-    --input-bg-color: rgba(255, 255, 255, 0.04);
-    --border-color: rgba(255, 255, 255, 0.08);;
-    --input-padding: 10px;
-    --border-radius: 5px;
-    --spacing: 20px;
-
-    --strong-text-color: #ffffff;
+    /* Text Colouring */
+    --strong-text-color: #f7f7f7;
     --weak-text-color: #d4d4d4;
-    --primary-color: #ea7800;
-    --accent-color: #f28f27;
-    --subs-font: montserrat-light;
-    --headers-font: montserrat;
-    --button-padding: 10px;
-}
 
-@font-face {
-    font-family: 'montserrat-light';
-    src: url('display/fonts/Montserrat-Light.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'montserrat';
-    src: url('display/fonts/Montserrat-Regular.ttf') format('truetype');
-}
-
-/* Reset default styles */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-/* Set global font and background color */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #23272A;
-    color: var(--strong-text-color);
-}
-
-html {
-    background: var(--bg-color);
-
-}
-
-/* Text Colouring */
-h1, h2, h3 {
-    color: var(--strong-text-color);
-    font-family: "Calibri", "sans-serif";
-    font-size: 34px;
-    margin-bottom: 5px;
-}
-
-p, div, label, span, h4, h5, h6, a {
-    color: var(--weak-text-color);
-    font-family: "Calibri Light", "sans-serif";
-    margin: 0;
-}
-
-/* Sub-text size */
-p, label, span {
-    font-size: 24px;
-}
-
-/* Shrink text size for small screens */
-@media only screen and (max-width: 600px) {
-    p, div, label, span {
-        font-size: 12px;
-    }
-}
-
-
-/* Text global modifications */
-h1, h2, h3, h4, h5, h6, p, div, label, span {
-    text-align: left;
+    --body-font: Montserrat Light, sans-serif;
+    --heading-font: Montserrat, Segoe UI, sans-serif;
 }
 
 /* flex box template */
@@ -89,168 +33,123 @@ h1, h2, h3, h4, h5, h6, p, div, label, span {
     padding: 10px;
 }
 
-/* content box template */
-.content-box {
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    position: relative;
-    min-height: 180px;
-    float: left;
-
-    width: calc(45% - 348px);
-    padding: 10px 30px;
-
-    background: rgba(255, 255, 255, 0.04);
-    border-radius: 4px;
-    border-top: 5px solid red;
-    transition: 300ms;
 }
 
-.content-box:hover {
-    border-top: 5px solid red;
-}
-
-/* Input Fields */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-textarea {
-    background-color: var(--input-bg-color);
-    border: none;
-    border-bottom: 2px solid var(--border-color);
-    color: var(--strong-text-color);
-    padding: var(--input-padding);
-    transition: all 0.3s ease-in-out;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
-textarea:focus {
-    border-bottom: 2px solid var(--accent-color);
-    outline: none;
-}
-
-/* Navigation */
-nav {
-    background-color: var(--header-bg-color);
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 100;
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-nav.scrolled {
-    background-color: var(--header-bg-color-alt);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Feature List */
-.feature-list-item {
-    background-color: var(--header-bg-color);
-    border-radius: var(--border-radius);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    color: var(--strong-text-color);
-    flex-basis: calc(50% - var(--spacing));
-    margin-bottom: var(--spacing);
-    padding: var(--spacing);
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.feature-list-item:hover {
-    background-color: var(--header-bg-color-alt);
-    transform: translateY(-5px);
-}
-
-/* Footer */
-footer {
-    background-color: var(--header-bg-color);
-    color: var(--strong-text-color);
-    padding: var(--spacing);
-}
-
-/* Transitions */
+/* Typography */
 body {
+    font-family: var(--body-font);
+    font-size: 1rem;
+    color: var(--weak-text-color);
+    background-color: var(--dark-bg-color);
     transition: background-color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-header {
-    transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--heading-font);
+    font-weight: bold;
+    margin-bottom: 1rem;
 }
 
-/* Input Fields */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-textarea {
-    background-color: var(--input-bg-color);
-    border: none;
-    border-bottom: 2px solid var(--border-color);
-    color: var(--strong-text-color);
-    padding: var(--input-padding);
-    transition: all 0.3s ease-in-out;
+h1 {
+    font-size: 3rem;
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
-textarea:focus {
-    border-bottom: 2px solid var(--accent-color);
-    outline: none;
+h2 {
+    font-size: 2rem;
 }
 
-/* Navigation */
-nav {
-    background-color: var(--header-bg-color);
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 100;
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+h3 {
+    font-size: 1.5rem;
 }
 
-nav.scrolled {
-    background-color: var(--header-bg-color-alt);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Feature List */
-.feature-list-item {
-    background-color: var(--header-bg-color);
-    border-radius: var(--border-radius);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    color: var(--strong-text-color);
-    flex-basis: calc(50% - var(--spacing));
-    margin-bottom: var(--spacing);
-    padding: var(--spacing);
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.feature-list-item:hover {
-    background-color: var(--header-bg-color-alt);
-    transform: translateY(-5px);
-}
-
-/* Footer */
-footer {
-    background-color: var(--header-bg-color);
-    color: var(--strong-text-color);
-    padding: var(--spacing);
-}
-
-/* Transitions */
-body {
-    transition: background-color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-header {
-    transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-h1,
-h2,
-h3,
-h4,
 p {
-    transition: color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+/* Header */
+header {
+    background-color: var(--light-bg-color);
+    padding: 1rem 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.logo {
+    font-size: 2rem;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark-bg-color);
+    color: var(--weak-text-color);
+    padding: 1rem 0;
+    text-align: center;
+}
+
+footer p {
+    font-size: 1rem;
+}
+
+/* Search button and bar */
+input[type="text"] {
+    background: rgba(255, 255, 255, .04);
+    border-radius: 4px;
+    padding: 1rem;
+    color: var(--weak-text-color);
+
+    border: none;
+    outline: none;
+
+    font-size: 1.6rem;
+    text-transform: capitalize;
+    width: 70%;
+    transition: all 500ms;
+}
+
+input[type="text"]:hover {
+    background: rgba(255, 255, 255, .06);
+    color: var(--strong-text-color);
+}
+
+button[type="submit"] {
+    background-color: var(--accent-color);
+    color: var(--strong-text-color);
+    font-size: 2rem;
+
+    padding: 0.7rem 1.2rem;
+    margin-left: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+
+    border: none;
+    outline: none;
+    transition: all 500ms;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--primary-color);
+    color: #dbdbdb;
+}
+
+button[type="submit"] img {
+  width: 25px;
+  height: 25px;
+  object-fit: cover;
 }
