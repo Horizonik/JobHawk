@@ -45,11 +45,13 @@ section {
 section.one-third {
     flex: 1;
     max-height: calc(100vh / 3);
+    min-height: 33.33%; /* set a minimum height of one-third of the viewport height */
 }
 
 section.two-thirds {
     flex: 2;
     max-height: calc(2 * (100vh / 3));
+    min-height: 66.67%; /* set a minimum height of one-third of the viewport height */
 }
 
 /* Reset */
@@ -124,6 +126,11 @@ header {
     font-size: 2rem;
     color: var(--primary-color);
     text-decoration: none;
+}
+
+.logo:hover {
+    filter: brightness(120%);
+    transition: 300ms;
 }
 
 nav {
