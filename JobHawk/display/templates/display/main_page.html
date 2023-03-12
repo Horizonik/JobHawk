@@ -8,22 +8,20 @@
 
 {% block content %}
     <main>
-        <section class="hero">
-            <!-- 1/3 content -->
-            <div class="container">
-                <h1>Find Your Dream Job with JobHawk</h1>
-                <form>
-                    <label for="search-input"></label>
-                    <input id="search-input" class="search-input" type="text" placeholder="Enter job Title or keywords">
-                    <button type="submit"><img src="{% static 'display/icons/magnifying_glass.png' %}" alt="Search">
-                    </button>
-                </form>
-            </div>
+        <section class="two-thirds">
+            <h1>Find Your Dream Job with JobHawk</h1>
+            <form method="get" action="{% url 'search_results' %}">
+                <label for="search-input"></label>
+                <input name="query" id="search-input" class="search-input" type="text"
+                       placeholder="Enter job Title or keywords">
+                <button type="submit"><img src="{% static 'display/icons/magnifying_glass.png' %}" alt="Search">
+                </button>
+            </form>
         </section>
-        <section class="features">
-            <!-- 2/3 content -->
-            <div class="container">
-                <h2>Why Choose JobHawk?</h2>
+        <section class="features one-third">
+            <div class="padding-wrapper">
+                <h2 class="sub-title">Why Choose JobHawk?</h2>
+
                 <div class="feature-list">
                     <div class="feature-item">
                         <img src="icons/fast.png" alt="fast_icon">

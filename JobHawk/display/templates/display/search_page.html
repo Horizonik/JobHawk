@@ -7,6 +7,53 @@
 
 {% block content %}
     <main>
+        <section class="one-third">
+            <form method="get" action="{% url 'search_results' %}">
+                <label for="search-input"></label>
+                <input id="search-input" class="search-input" type="text" placeholder="Enter job Title or keywords">
+                <button type="submit"><img src="{% static 'display/icons/magnifying_glass.png' %}" alt="Search">
+                </button>
+            </form>
+        </section>
+        <section class="features two-thirds">
+            <div class="padding-wrapper">
+                <h2 class="sub-title">Results</h2>
+
+                <div class="container">
+                    <ul>
+                        {% for result in results %}
+                            <li>{{ result.title }}</li>
+                        {% empty %}
+                            <li>No results found.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                {% if is_paginated %}
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if page_obj.has_previous %}
+                                <a href="?page=1">&laquo; first</a>
+                                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                            {% endif %}
+
+                            <span class="current-page">
+                              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                            </span>
+
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+
+
+    <main>
         <section class="top-searchbar">
             <div class="container">
                 <form>
@@ -17,16 +64,36 @@
                 </form>
             </div>
         </section>
-        <section class="results">
+        <section>
             <div class="container">
                 <ul>
-                    {% for city in object_list %}
-                        <li>
-                            {{ city.name }}, {{ city.state }}
-                        </li>
+                    {% for result in results %}
+                        <li>{{ result.title }}</li>
+                    {% empty %}
+                        <li>No results found.</li>
                     {% endfor %}
                 </ul>
             </div>
+
+            {% if is_paginated %}
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+
+                        <span class="current-page">
+                          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                      </span>
+
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            {% endif %}
         </section>
     </main>
 {% endblock %}
