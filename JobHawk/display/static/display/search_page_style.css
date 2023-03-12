@@ -1,0 +1,23 @@
+/* The top area where the search bar is located */
+.top-searchbar {
+    /*background-image: url('hero-bg.jpg');*/
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.top-searchbar h1 {
+    font-size: 3.7rem;
+    text-align: center;
+    color: var(--strong-text-color);
+    margin-bottom: 2rem;
+}
+
+.top-searchbar form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
