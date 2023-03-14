@@ -57,7 +57,6 @@ section.two-thirds {
 /* Reset */
 * {
     margin: 0;
-    box-sizing: border-box;
 }
 
 /* Typography */
@@ -116,6 +115,7 @@ header {
     padding: 0.5rem 1rem;
     color: var(--weak-text-color);
     text-decoration: none;
+    transition: 200ms;
 }
 
 .menu li a:hover {

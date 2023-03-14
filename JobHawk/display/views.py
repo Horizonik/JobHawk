@@ -18,4 +18,4 @@ class SearchPageView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('query')
-        return Job.objects.filter(title__icontains=query)
+        return Job.objects.filter(title__icontains=query).order_by('date_published')
