@@ -17,7 +17,7 @@ nltk.download('wordnet')
 nlp = spacy.load('en_core_web_sm')
 
 # DATA PREPERATION
-# todo call scraper here
+# todo call scrapers here
 job_descriptions = [
     """At least five years of proven experience as a Python backend developer experience designing and maintaining production systems in microservices environments Strong familiarity with cloud platforms such as AWS, Azure, or Google Cloud. Desirable qualifications include experience working in a small startup, familiarity with AWS CloudFormation, and expertise with CI/CD pipelines.""",
     """- Two years of managerial experience
@@ -37,6 +37,8 @@ def preprocess_job(job_description: str) -> str:
     # Remove HTML tags and URLs
     job_description = re.sub('<[^<]+?>', '', job_description)
     job_description = re.sub(r'http\S+', '', job_description)
+    job_description = re.sub(r'[^ \nA-Za-z0-9À-ÖØ-öø-ÿ/]+', '', job_description)
+    job_description = re.sub(r'[\\/×\^\]\[÷]', '', job_description)
 
     # Tokenize the text into individual words
     words = nltk.word_tokenize(job_description)
@@ -44,7 +46,7 @@ def preprocess_job(job_description: str) -> str:
     # Remove stop words and punctuation
     stop_words = set(stopwords.words('english'))
     pattern = re.compile('^[a-zA-Z0-9_]*$')
-    filtered_tokens = [w for w in words if w.lower() not in stop_words and pattern.match(w)]
+    filtered_tokens = [w for w in words if w not in stop_words and pattern.match(w)]
 
     # Replace number words with numeric equivalents
     for i in range(len(filtered_tokens)):
@@ -57,7 +59,7 @@ def preprocess_job(job_description: str) -> str:
                     filtered_tokens[i] = str(token_as_digit)
 
             except ValueError:
-                pass
+                continue
 
     # Apply lemmatization to the words
     lemmatizer = WordNetLemmatizer()
