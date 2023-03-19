@@ -1,0 +1,7 @@
+{% load static %}
+
+<label for="search-input"></label>
+{% autoescape on %}
+    <input name="query" id="search-input" class="search-input" type="text" placeholder="Enter job Title or keywords" required>
+{% endautoescape %}
+<button type="submit"><img src="{% static 'display/icons/magnifying_glass.png' %}" alt="Search"></button>
