@@ -1,8 +1,5 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.utils.html import escape
 from django.views.generic import ListView, TemplateView
-
-from .forms import SearchForm
 from .models import Job
 
 
@@ -18,4 +15,9 @@ class SearchPageView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('query')
-        return Job.objects.filter(title__icontains=query).order_by('date_published')
+
+        if query:
+            query = escape(query)
+            return Job.objects.filter(title__icontains=query).order_by('date_published')
+
+        return Job.objects.none()

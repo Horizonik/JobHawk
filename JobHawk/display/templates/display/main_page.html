@@ -3,19 +3,14 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{% static "display/main_page_style.css" %}">
-
 {% endblock %}
 
 {% block content %}
     <main>
         <section class="two-thirds">
             <h1>Find Your Dream Job with JobHawk</h1>
-            <form method="get" action="{% url 'search_results' %}">
-                <label for="search-input"></label>
-                <input name="query" id="search-input" class="search-input" type="text"
-                       placeholder="Enter job Title or keywords">
-                <button type="submit"><img src="{% static 'display/icons/magnifying_glass.png' %}" alt="Search">
-                </button>
+            <form method="get" action="{% url 'SearchPageView' %}" onsubmit="return validateForm()">
+                {% include 'display/searchbar_base.html' %}
             </form>
         </section>
         <section class="features one-third">
@@ -27,6 +22,7 @@
                     <h3>Fast Results</h3>
                     <p>Get job recommendations instantly with our AI-powered system.</p>
                 </div>
+
                 <div class="feature-item">
                     <img src="icons/accurate.png" alt="accurate_icon">
                     <h3>Accurate Results</h3>

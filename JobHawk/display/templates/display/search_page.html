@@ -8,11 +8,8 @@
 {% block content %}
     <main>
         <section class="one-third">
-            <form method="get" action="{% url 'search_results' %}">
-                <label for="search-input"></label>
-                <input id="search-input" class="search-input" type="text" placeholder="Enter job Title or keywords">
-                <button type="submit"><img src="{% static 'display/icons/magnifying_glass.png' %}" alt="Search">
-                </button>
+            <form method="get" action="{% url 'SearchPageView' %}" onsubmit="return validateForm()">
+                {% include 'display/searchbar_base.html' %}
             </form>
         </section>
         <section class="features two-thirds align-to-left-corner">
