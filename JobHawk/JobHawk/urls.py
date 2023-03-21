@@ -13,12 +13,21 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
+import django_saml2_auth.views
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 
 urlpatterns = [
-    path(r'saml2/', include('djangosaml2.urls')),
+    # The order of paths/urls matters here; put these first.
+    re_path(r'^saml/', include('django_saml2_auth.urls')),
+
+    # Overrides django's default and admin login
+    re_path(r'^accounts/login/$', django_saml2_auth.views.signin),
+    re_path(r'^admin/login/$', django_saml2_auth.views.signin),
+
+    re_path(r'^accounts/logout/$', django_saml2_auth.views.signout),
+    re_path(r'^admin/logout/$', django_saml2_auth.views.signout),
+
     path('', include('display.urls')),
     path('admin/', admin.site.urls),
 ]
