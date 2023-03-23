@@ -4,13 +4,16 @@ FROM python:3.11-slim-buster
 # Set the working directory
 WORKDIR /app
 
+# Get env variables from github actions secrets
+ARG ENV_VARIABLES
+ENV $ENV_VARIABLES
+
 # Install any needed packages specified in requirements.txt
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Install Node.js and npm for the frontend
 RUN apt-get update && apt-get install -y nodejs npm
-RUN npm install -g yarn
 
 # Copy the frontend and backend code into the container
 COPY frontend /app/frontend
@@ -18,7 +21,7 @@ COPY backend /app/backend
 
 # Install the frontend dependencies and build the production bundle
 WORKDIR /app/frontend
-RUN yarn install --verbose && yarn build --verbose
+RUN npm install && npm run build
 
 # Copy the production bundle to the backend
 WORKDIR /app/backend
