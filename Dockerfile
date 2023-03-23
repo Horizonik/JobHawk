@@ -6,7 +6,13 @@ WORKDIR /app
 
 # Get env variables from github actions secrets
 ARG ENV_VARIABLES
-ENV $ENV_VARIABLES
+
+# Set the values of ENV variables to the ARG values
+ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+ENV DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
+ENV DJANGO_DEBUG=${DJANGO_DEBUG}
+ENV DJANGO_SECURE_SSL_REDIRECT=${DJANGO_SECURE_SSL_REDIRECT}
+ENV DJANGO_SESSION_COOKIE_HTTPONLY=${DJANGO_SESSION_COOKIE_HTTPONLY}
 
 # Install any needed packages specified in requirements.txt
 COPY requirements.txt .
