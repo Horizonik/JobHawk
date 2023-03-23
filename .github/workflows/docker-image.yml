@@ -23,11 +23,7 @@ jobs:
               DJANGO_SECURE_SSL_REDIRECT=${{ secrets.DJANGO_SECURE_SSL_REDIRECT }},\
               DJANGO_SESSION_COOKIE_HTTPONLY=${{ secrets.DJANGO_SESSION_COOKIE_HTTPONLY }}" \
             --file Dockerfile \
-<<<<<<< HEAD
-            -t gemesil/jobhawk-backend:latest \
-=======
             --tag gemesil/jobhawk-backend:latest \
->>>>>>> cdcc3b23bf88f1291ee3bfff5c2e5c019d8c6102
             .
 
       # Start the backend container and test the connection
