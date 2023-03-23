@@ -6,18 +6,31 @@ on:
   pull_request:
     branches: [ "main" ]
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    # ...
-    - name: Build Docker image
-      run: |
-        docker build \
-          --build-arg ENV_VARIABLES="DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }},\
-            DJANGO_ALLOWED_HOSTS=${{ secrets.DJANGO_ALLOWED_HOSTS }},\
-            DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }},\
-            DJANGO_SECURE_SSL_REDIRECT=${{ secrets.DJANGO_SECURE_SSL_REDIRECT }},\
-            DJANGO_SESSION_COOKIE_HTTPONLY=${{ secrets.DJANGO_SESSION_COOKIE_HTTPONLY }}" \
-          -t gemesil/jobhawk:latest .
+      # Checkout the repository
+      - uses: actions/checkout@v2
+
+      # Check that the Dockerfile exists
+      - name: Check Dockerfile
+        run: test -f Dockerfile
+
+      # Build the Docker images
+      - name: Build Docker images
+        run: docker-compose build
+
+      # Start the backend container and test the connection
+      - name: Test backend connection
+        run: |
+          docker-compose up -d backend
+          sleep 10 # Wait for the server to start
+          curl --retry 10 --retry-connrefused http://localhost:8000/
+
+      # Start the frontend container and test the connection
+      - name: Test frontend connection
+        run: |
+          docker-compose up -d frontend
+          sleep 10 # Wait for the server to start
+          curl --retry 10 --retry-connrefused http://localhost:3000/
