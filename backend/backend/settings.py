@@ -11,7 +11,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+
+import saml2 as saml2
 from django.urls import reverse_lazy
+
+from saml2 import BINDING_HTTP_POST, BINDING_HTTP_REDIRECT
+from saml2.saml import NAMEID_FORMAT_UNSPECIFIED
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +44,7 @@ INSTALLED_APPS = [
     'jobsearch',
     'corsheaders',
     'rest_framework',
+    'djangosaml2',
 ]
 
 MIDDLEWARE = [
@@ -139,14 +145,72 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # SECURE_HSTS_PRELOAD = True
 
 # SAML
-SAML2_AUTH = {
-    'METADATA_LOCAL_FILE_PATH': 'saml/metadata.xml',
-    'ASSERTION_URL': 'http://127.0.0.1:8000',
-    'ENTITY_ID': 'http://127.0.0.1:8000/saml/acs/',
-    'DEFAULT_NEXT_URL': '/',
+SAML_BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+LOGIN_REDIRECT_URL = 'http://127.0.0.1:3000/saml-redirect'
+LOGIN_URL = '/saml2/login/'
+LOGOUT_URL = '/saml2/logout/'
+
+AUTHENTICATION_BACKENDS = [
+    'jobsearch.backends.SAMLAuthenticationBackend',
+]
+
+SAML_CONFIG = {
+    'xmlsec_binary': '/usr/bin/xmlsec1',  # Path to the xmlsec1 binary
+    'entityid': 'http://127.0.0.1:8000/metadata',  # Replace with your Django app's domain
+    'attribute_map_dir': os.path.join(os.path.dirname(saml2.__file__), 'attributemaps'),
+    'nameid_format': 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
+    'idp': {
+        'https://adfs.example.com/metadata': {  # Replace with your ADFS metadata URL
+            'metadata': {
+                'local': [os.path.join(BASE_DIR, 'metadata.xml')],  # Update the path to your local metadata file
+            },
+            'single_sign_on_service': {
+                'binding': 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
+                'location': 'https://adfs.example.com/SSO',  # Replace with your ADFS SSO URL
+            },
+            'single_logout_service': {
+                'binding': 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
+                'location': 'https://adfs.example.com/Logout',  # Replace with your ADFS logout URL
+            },
+            'x509cert': 'CERTIFICATE_DATA_HERE',  # Replace with your ADFS public certificate data
+        },
+    },
+}
+
+SAML_AUTH = {
+    'strict': True,
+    'debug': False,
+    'entity_id': 'https://127.0.0.1:8000/metadata',
+    'nameid_format': NAMEID_FORMAT_UNSPECIFIED,
+    'service': {
+        'sp': {
+            'name': 'Django SAML Service Provider',
+            'endpoints': {
+                'assertion_consumer_service': [
+                    ('https://127.0.0.1:8000/acs/', BINDING_HTTP_POST),
+                ],
+                'single_logout_service': [
+                    ('https://127.0.0.1:8000/ls/', BINDING_HTTP_REDIRECT),
+                    ('https://127.0.0.1:8000/ls/post/', BINDING_HTTP_POST),
+                ],
+            },
+            'required_attributes': ['uid'],
+            'optional_attributes': ['email', 'first_name', 'last_name'],
+        },
+    },
+    'security': {
+        'authn_requests_signed': False,
+        'logout_requests_signed': True,
+        'logout_responses_signed': True,
+        'want_assertions_signed': True,
+        'want_response_signed': False,
+    },
+    'metadata': {
+        'local': [os.path.join(SAML_BASE_DIR, 'metadata.xml')],
+    },
 }
 
 # Corsheaders
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
+    'http://127.0.0.1:3000',
 ]
