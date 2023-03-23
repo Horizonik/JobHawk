@@ -128,21 +128,21 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Enable HTTPS and set a secure cookie flag
-# SESSION_COOKIE_HTTPONLY = bool(os.environ.get('DJANGO_SESSION_COOKIE_HTTPONLY', False))
-# SECURE_SSL_REDIRECT = bool(os.environ.get('DJANGO_SECURE_SSL_REDIRECT', False))
-# CSRF_COOKIE_SECURE = True
-# SESSION_COOKIE_SECURE = True
-#
-# # Enable XSS protection for supported browsers
-# SECURE_BROWSER_XSS_FILTER = True
-#
-# # Enable content type sniffing protection for supported browsers
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-#
-# # Enable HSTS headers to force HTTPS on future requests
-# SECURE_HSTS_SECONDS = 31536000
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_HSTS_PRELOAD = True
+SESSION_COOKIE_HTTPONLY = bool(os.environ.get('DJANGO_SESSION_COOKIE_HTTPONLY', False))
+SECURE_SSL_REDIRECT = bool(os.environ.get('DJANGO_SECURE_SSL_REDIRECT', False))
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# Enable XSS protection for supported browsers
+SECURE_BROWSER_XSS_FILTER = True
+
+# Enable content type sniffing protection for supported browsers
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Enable HSTS headers to force HTTPS on future requests
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
 
 # SAML
 SAML_BASE_DIR = os.path.abspath(os.path.dirname(__file__))
