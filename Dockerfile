@@ -18,7 +18,7 @@ COPY backend /app/backend
 
 # Install the frontend dependencies and build the production bundle
 WORKDIR /app/frontend
-RUN yarn install && yarn build
+RUN yarn install --verbose && yarn build --verbose
 
 # Copy the production bundle to the backend
 WORKDIR /app/backend
