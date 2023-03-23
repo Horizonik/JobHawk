@@ -16,7 +16,7 @@ jobs:
       # Build the backend Docker image
       - name: Build backend Docker image
         run: |
-          docker build . \
+          docker build \
             --build-arg ENV_VARIABLES="DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }},\
               DJANGO_ALLOWED_HOSTS=${{ secrets.DJANGO_ALLOWED_HOSTS }},\
               DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }},\
@@ -24,6 +24,7 @@ jobs:
               DJANGO_SESSION_COOKIE_HTTPONLY=${{ secrets.DJANGO_SESSION_COOKIE_HTTPONLY }}" \
             --file Dockerfile \
             --tag gemesil/jobhawk-backend:latest
+            .
 
       # Start the backend container and test the connection
       - name: Test backend connection
