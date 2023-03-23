@@ -13,24 +13,33 @@ jobs:
       # Checkout the repository
       - uses: actions/checkout@v2
 
-      # Check that the Dockerfile exists
-      - name: Check Dockerfile
-        run: test -f Dockerfile
-
-      # Build the Docker images
-      - name: Build Docker images
-        run: docker-compose build
+      # Build the backend Docker image
+      - name: Build backend Docker image
+        run: |
+          docker build \
+            --build-arg ENV_VARIABLES="DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }},\
+              DJANGO_ALLOWED_HOSTS=${{ secrets.DJANGO_ALLOWED_HOSTS }},\
+              DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }},\
+              DJANGO_SECURE_SSL_REDIRECT=${{ secrets.DJANGO_SECURE_SSL_REDIRECT }},\
+              DJANGO_SESSION_COOKIE_HTTPONLY=${{ secrets.DJANGO_SESSION_COOKIE_HTTPONLY }}" \
+            -t gemesil/jobhawk-backend:latest \
+            backend
 
       # Start the backend container and test the connection
       - name: Test backend connection
         run: |
-          docker-compose up -d backend
+          docker run --name backend-test -d -p 8000:8000 gemesil/jobhawk-backend:latest
           sleep 10 # Wait for the server to start
-          curl --retry 10 --retry-connrefused http://localhost:8000/
+          curl --retry 10 --retry-connrefused http://127.0.0.1:8000/
+
+      # Build the frontend Docker image
+      - name: Build frontend Docker image
+        run: |
+          docker build -t gemesil/jobhawk-frontend:latest frontend
 
       # Start the frontend container and test the connection
       - name: Test frontend connection
         run: |
-          docker-compose up -d frontend
+          docker run --name frontend-test -d -p 3000:3000 gemesil/jobhawk-frontend:latest
           sleep 10 # Wait for the server to start
-          curl --retry 10 --retry-connrefused http://localhost:3000/
+          curl --retry 10 --retry-connrefused http://127.0.0.1:3000/
