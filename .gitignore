@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 
 # jetbrains bs
-.idea/
+.idea/*
+!.idea/rcb-settings.xml
