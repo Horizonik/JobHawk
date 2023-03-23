@@ -20,4 +20,4 @@ jobs:
           --build-arg DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }} \
           --build-arg DJANGO_SECURE_SSL_REDIRECT=${{ secrets.DJANGO_SECURE_SSL_REDIRECT }} \
           --build-arg DJANGO_SESSION_COOKIE_HTTPONLY=${{ secrets.DJANGO_SESSION_COOKIE_HTTPONLY }} \
-          -- docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+          --docker build . --file Dockerfile --tag my-image-name:$(date +%s)
