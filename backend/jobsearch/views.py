@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from rest_framework import generics, filters
+
 from .models import Job
 from .serializers import JobSerializer
-from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
 
 
 @login_required
