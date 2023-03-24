@@ -1,38 +1,317 @@
-.App {
-  text-align: center;
+/* Define variables for repeated colors and spacing */
+@font-face {
+    font-family: "Montserrat";
+    src: url('design/Montserrat-Regular.ttf') format('truetype');
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@font-face {
+    font-family: "Montserrat Light";
+    src: url('design/Montserrat-Light.ttf') format('truetype');
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+:root {
+    --primary-color: #00f088;
+    --accent-color: #12c87b;
+    --dark-bg-color: #1c1c1c;
+    --light-bg-color: #282828;
+
+    /* Text Colouring */
+    --strong-text-color: #f7f7f7;
+    --weak-text-color: #d4d4d4;
+
+    --body-font: Montserrat Light, sans-serif;
+    --heading-font: Montserrat, Segoe UI, sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.page-transition-enter {
+    opacity: 0;
+    transform: translateY(-10%);
 }
 
-.App-link {
-  color: #61dafb;
+.page-transition-enter-active {
+    opacity: 1;
+    transform: translateY(0%);
+    transition: opacity 500ms, transform 500ms;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.page-transition-exit {
+    opacity: 1;
+    transform: translateY(0%);
+}
+
+.page-transition-exit-active {
+    opacity: 0;
+    transform: translateY(-10%);
+    transition: opacity 300ms, transform 300ms;
+}
+
+main {
+    flex-grow: 1;
+}
+
+.padding-wrapper {
+    padding: 20px;
+    margin: -20px;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+section.one-third {
+    flex: 1;
+    max-height: calc(100vh / 3);
+    min-height: 33.33%; /* set a minimum height of one-third of the viewport height */
+}
+
+section.two-thirds {
+    flex: 2;
+    max-height: calc(2 * (100vh / 3));
+    min-height: 66.67%; /* set a minimum height of one-third of the viewport height */
+}
+
+/* Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body, #root {
+    background-color: var(--dark-bg-color);
+}
+
+body {
+    font-family: var(--body-font);
+    font-size: 1rem;
+    color: var(--weak-text-color);
+    transition: background-color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--heading-font);
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+header {
+    background-color: var(--light-bg-color);
+}
+
+.menu {
+    display: flex;
+}
+
+.menu li {
+    list-style: none;
+}
+
+.menu li a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--weak-text-color);
+    text-decoration: none;
+    transition: 200ms;
+}
+
+.menu li a:hover {
+    color: var(--accent-color);
+}
+
+.logo {
+    font-size: 2rem;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.logo:hover {
+    filter: brightness(120%);
+    transition: 300ms;
+}
+
+nav {
+    padding: 0.5rem;
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark-bg-color);
+    color: var(--weak-text-color);
+    padding: 1rem 0;
+    text-align: center;
+}
+
+footer p {
+    font-size: 1rem;
+}
+
+/* Search button and bar */
+input[type="text"] {
+    background: rgba(255, 255, 255, .04);
+    border-radius: 4px;
+    padding: 1rem;
+    color: var(--weak-text-color);
+    min-width: 800px;
+    max-width: 1200px;
+
+    border: none;
+    outline: none;
+
+    font-size: 1.6rem;
+    text-transform: capitalize;
+    width: 70%;
+    transition: all 500ms;
+}
+
+input[type="text"]:hover {
+    background: rgba(255, 255, 255, .06);
+    color: var(--strong-text-color);
+}
+
+button[type="submit"] {
+    background-color: var(--accent-color);
+    color: var(--strong-text-color);
+    font-size: 2rem;
+
+    padding: 0.7rem 1.2rem;
+    margin-left: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+
+    border: none;
+    outline: none;
+    transition: all 500ms;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--primary-color);
+    color: #dbdbdb;
+}
+
+button[type="submit"] img {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+}
+
+.job-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.job-card {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    padding: 1rem;
+    width: calc(100% / 6 - 1rem);
+    max-width: 300px;
+    min-width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: 0.5rem;
+}
+
+.job-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.job-card a {
+    color: white;
+    background-color: #007bff;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.saml-login {
+    display: block;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.saml-login:hover {
+    background-color: #0069d9;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.start-button {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 30px;
+    color: var(--strong-text-color);
+    font-family: var(--heading-font);
+    font-size: 1.25rem;
+    padding: 10px 30px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.start-button:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.start-button:active {
+    transform: scale(1.1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .job-card {
+        width: calc(100% / 3 - 1rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .job-card {
+        width: calc(100% / 2 - 1rem);
+    }
 }
