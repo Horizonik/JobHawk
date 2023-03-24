@@ -47,5 +47,9 @@ RUN rm /etc/nginx/sites-enabled/default
 # Copy the gunicorn configuration file into the container
 COPY gunicorn.conf /app/gunicorn.conf
 
-# Start the app with gunicorn and nginx
-CMD ["gunicorn", "-c", "/app/gunicorn.conf", "backend.wsgi:application"]
+# Copy the start script into the container
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
+
+# Start the app with the start script
+CMD ["/app/start.sh"]
