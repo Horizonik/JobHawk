@@ -31,7 +31,7 @@ jobs:
         run: |
           docker run --name backend-test -d -p 8000:8000 gemesil/jobhawk-backend:latest
           sleep 10 # Wait for the server to start
-          curl --retry 10 --retry-connrefused http://127.0.0.1:8000/
+          curl --retry 10 --retry-connrefused http://127.0.0.1:80/
 
       # Build the frontend Docker image
       - name: Build frontend Docker image
@@ -43,4 +43,4 @@ jobs:
         run: |
           docker run --name frontend-test -d -p 3000:3000 gemesil/jobhawk-frontend:latest
           sleep 10 # Wait for the server to start
-          curl --retry 10 --retry-connrefused http://127.0.0.1:3000/
+          curl --retry 10 --retry-connrefused http://127.0.0.1:80/
