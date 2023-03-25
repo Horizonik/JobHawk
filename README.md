@@ -1,3 +1,6 @@
+![Python versions](https://img.shields.io/badge/python-3.10.10-blue.svg)
+![Build status](https://github.com/github/docs/actions/workflows/docker-image.yml/badge.svg?branch=main)
+
 ### Introduction
 Web App that enables users to quickly find jobs they're best suited for. 
 
