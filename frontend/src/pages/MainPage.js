@@ -35,20 +35,22 @@ const MainPage = () => {
                     <div className="features-wrapper">
                         <h2>Why Choose JobHawk?</h2>
 
-                        <div className="feature-list">
-                            <div className="feature-item">
+                        <div className="groups-container">
+                            <div className="blur"></div>
+
+                            <div className="group">
                                 <img src="icons/fast.png" alt="fast_icon"/>
                                 <h3>Fast Results</h3>
                                 <p>Get job recommendations instantly with our AI-powered system.</p>
                             </div>
 
-                            <div className="feature-item">
+                            <div className="group">
                                 <img src="icons/accurate.png" alt="accurate_icon"/>
                                 <h3>Accurate Results</h3>
                                 <p>Our system matches you with the most relevant job openings based on your skills and
                                     experience.</p>
                             </div>
-                            <div className="feature-item">
+                            <div className="group">
                                 <img src="icons/easy.png" alt="easy_icon"/>
                                 <h3>Easy to Use</h3>
                                 <p>Our simple and intuitive interface makes job searching a breeze.</p>

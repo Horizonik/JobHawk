@@ -15,6 +15,7 @@ function App() {
                             <li><a href="#contact">Contact</a></li>
                         </ul>
                     </nav>
+                    <button className="ham_menu" href="#menu"></button>
                 </section>
             </header>
             <main>
