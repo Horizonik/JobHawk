@@ -40,14 +40,3 @@
     display: flex;
     justify-content: space-around;
 }
-
-.feature-item {
-    text-align: center;
-    max-width: 350px;
-    padding: 20px;
-}
-
-.feature-item img {
-    height: 120px;
-    margin-bottom: 2rem;
-}
