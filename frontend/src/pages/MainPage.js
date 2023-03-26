@@ -21,43 +21,51 @@ const MainPage = () => {
             classNames="page-transition"
         >
             {searchStarted ? (<SearchPage/>) : (<div className="main-page">
-                <section>
-                    <h1>Find Your Dream Job with JobHawk</h1>
-                    <p>Find your dream job with ease using our AI-powered job search.</p>
-                    <div className="button-container">
-                        <button className="start-button" onClick={handleStartSearching}>Let's Start</button>
-                    </div>
-                    <div className="button-container">
-                        <button className="start-button" onClick={handleSamlLogin}>SAML Login</button>
-                    </div>
-                </section>
-                <section>
-                    <div className="features-wrapper">
-                        <h2>Why Choose JobHawk?</h2>
-
-                        <div className="groups-container">
-                            <div className="blur"></div>
-
-                            <div className="group">
-                                <img src="icons/fast.png" alt="fast_icon"/>
-                                <h3>Fast Results</h3>
-                                <p>Get job recommendations instantly with our AI-powered system.</p>
-                            </div>
-
-                            <div className="group">
-                                <img src="icons/accurate.png" alt="accurate_icon"/>
-                                <h3>Accurate Results</h3>
-                                <p>Our system matches you with the most relevant job openings based on your skills and
-                                    experience.</p>
-                            </div>
-                            <div className="group">
-                                <img src="icons/easy.png" alt="easy_icon"/>
-                                <h3>Easy to Use</h3>
-                                <p>Our simple and intuitive interface makes job searching a breeze.</p>
-                            </div>
+                <div class="container">
+                    <div class="header">
+                        <h1>Welcome to JobHawk</h1>
+                        <p>Find your dream job among thousands of available opportunities. Enter a job title, keyword or
+                            location and start your search now!</p>
+                        <div class="search-container">
+                            <input class="search-input" type="text" placeholder="Job title, keywords or location"/>
+                            <button class="search-button">Search</button>
                         </div>
                     </div>
-                </section>
+                    <div class="info-section">
+                        <div class="info-box">
+                            <h2>Introduction</h2>
+                            <p>JobHawk is a web app that enables users to quickly find jobs they're best suited for. Our
+                                platform uses AI and NLP algorithms to process user inputs and fetch the most relevant
+                                job listings from LinkedIn, Indeed, and Glassdoor.</p>
+                        </div>
+                        <div class="info-box">
+                            <h2>How it works</h2>
+                            <ul>
+                                <li>Enter a job title or skills you're familiar with.</li>
+                                <li>AI generates keywords and topics based on your input.</li>
+                                <li>Keywords are searched in job sites and results are scraped.</li>
+                                <li>NLP processes the data, extracting essential skills and job descriptions.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box">
+                            <h2>Technically speaking</h2>
+                            <p>Our backend runs on Django, where AI models, web scrapers, and NLP algorithms operate.
+                                Job data is saved as models. The frontend, built using React, offers a seamless SPA
+                                (Single Page Application) experience and communicates with the backend for keyword
+                                passing.</p>
+                        </div>
+                        <div class="info-box">
+                            <h2>Production & Future</h2>
+                            <p>The backend is managed by Nginx and Gunicorn using WSGI. Our web app is Dockerized and
+                                tested with GitHub Actions to ensure smooth operation. Future improvements include
+                                separate Dockerfiles for front and back ends, using Docker Compose, and refining NLP
+                                processing and AI models.</p>
+                        </div>
+                    </div>
+                </div>
+                <button className="feedback-button" aria-label="Quick feedback">
+                    <i className="fas fa-comment-alt"></i>
+                </button>
             </div>)}
         </CSSTransition>
     </TransitionGroup>);
