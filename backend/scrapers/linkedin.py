@@ -4,8 +4,6 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import pandas as pd
-import concurrent.futures
-from functools import partial
 
 headers = {'User-Agent': 'JobHawk'}
 
@@ -126,28 +124,6 @@ def save_data_to_excel(df, file_path):
     with pd.ExcelWriter(file_path) as writer:
         df.to_excel(writer, index=False)
 
-
-if __name__ == '__main__':
-    keywords_list = ["fullstack%20engineer", "data%20scientist", "machine%20learning", "backend%20developer", "frontend%20developer", "data", "engineer", "developer", "software", "data%20analyst", "QA", "automation", "django", "react", "java", "c#", "python"]
-    location = "Israel"
-
-    existing_data = pd.read_excel('../data.xlsx', dtype=str).astype(str)
-    combined_data = existing_data.copy()
-
-    try:
-        with concurrent.futures.ProcessPoolExecutor(max_workers=1) as executor:
-            func = partial(get_jobs_for_keyword, location=location)
-            results = list(executor.map(func, keywords_list))
-
-        for df in results:
-            if not df.empty:
-                combined_data = pd.concat([combined_data, df], axis=0, ignore_index=True)
-
-        combined_data = combined_data.drop_duplicates()
-        combined_data = combined_data.reset_index(drop=True)
-        save_data_to_excel(combined_data, '../data.xlsx')
-
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        save_data_to_excel(combined_data, '../data_before_crash.xlsx')
-        raise
+#
+# if __name__ == '__main__':
+#
