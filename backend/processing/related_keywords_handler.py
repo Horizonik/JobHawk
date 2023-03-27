@@ -1,10 +1,14 @@
+from functools import partial
+
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 from collections import defaultdict
+import concurrent.futures
 
 from backend.processing.preprocessing import preprocess_job
 from backend.processing.requirements_handler import calculate_requirements
+from backend.scrapers.linkedin import get_jobs_for_keyword, save_data_to_excel
 
 
 def train_keyword_model(descriptions):
@@ -39,7 +43,29 @@ def find_related_keywords(keyword, model, cluster_keywords, vectorizer):
 
 
 if __name__ == '__main__':
-    dataset = pd.read_excel('../data.xlsx', dtype=str).astype(str)
+
+    keywords_list = ["fullstack%20engineer", "data%20scientist", "machine%20learning", "backend%20developer", "frontend%20developer", "data", "engineer", "developer", "software", "data%20analyst", "QA", "automation", "django", "react", "java", "c#", "python"]
+    location = "Israel"
+
+    # dataset = pd.read_excel('../data.xlsx', dtype=str).astype(str)
+    # combined_data = existing_data.copy()
+    dataset = pd.DataFrame(columns=['title', 'company', 'location', 'description', 'url'])
+
+    try:
+        with concurrent.futures.ProcessPoolExecutor(max_workers=1) as executor:
+            func = partial(get_jobs_for_keyword, location=location)
+            results = list(executor.map(func, keywords_list))
+
+        for df in results:
+            if not df.empty:
+                dataset = pd.concat([dataset, df], axis=0, ignore_index=True)
+
+        dataset = dataset.drop_duplicates()
+        dataset = dataset.reset_index(drop=True)
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        save_data_to_excel(dataset, '../crashed_data.xlsx')
 
     if not dataset.empty:
         # preprocessing
@@ -59,4 +85,4 @@ if __name__ == '__main__':
         # save new data
         # dataset = dataset.drop_duplicates()
         dataset = dataset.reset_index(drop=True)
-        dataset.to_excel('updated_data.xlsx', index=False)
+        save_data_to_excel(dataset, '../data.xlsx')
