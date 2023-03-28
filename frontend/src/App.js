@@ -4,7 +4,7 @@ import ResultsPage from "./pages/ResultsPage";
 
 const App = () => {
     const [searchValue, setSearchValue] = useState('');
-    const [results, setResults] = useState([]);
+    // const [results, setResults] = useState([]);
     const [searchFocused, setSearchFocused] = useState(false);
 
     const handleSearch = () => {
@@ -29,9 +29,9 @@ const App = () => {
                 <nav className="navbar">
                     <div className="navbar-logo">JobHawk</div>
                     <div className="navbar-links">
-                        <a href="#" className="navbar-link">Home</a>
-                        <a href="#" className="navbar-link">About</a>
-                        <a href="#" className="navbar-link">Contact</a>
+                        <a href="#home" className="navbar-link">Home</a>
+                        <a href="#about" className="navbar-link">About</a>
+                        <a href="#contact" className="navbar-link">Contact</a>
                     </div>
                 </nav>
             </header>
