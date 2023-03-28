@@ -18,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 14
 
       - name: Install dependencies
         run: npm install --prefix ./frontend
@@ -55,7 +55,7 @@ jobs:
     needs: build-backend
     steps:
       - name: Checkout code
-        uses: actions/checkoutdocker run -d --name webapp -p 8000:8000 --rm ${{ steps.docker_build.outputs.image }}
+        uses: actions/checkout@v3
 
       - name: Download frontend build artifacts
         uses: actions/download-artifact@v3
