@@ -47,8 +47,6 @@
 //
 // export default ResultsPage;
 
-
-// ResultsPage.js (update)
 import React, {useState, useEffect, useCallback, useContext} from 'react';
 import JobCard from '../components/JobCard';
 import axios from 'axios';
