@@ -35,10 +35,13 @@ jobs:
           push: false
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
+          outputs: type=image,oci-mediatypes=true
 
       - name: Run Docker container
         run: |
-          docker run -d --name webapp -p 8000:8000 --rm ${{ steps.docker_build.outputs.bake-target }}
+          docker load < ${{ steps.docker_build.outputs.export-cache }}
+          IMAGE_ID=$(docker images -q --filter=dangling=false | head -n 1)
+          docker run -d --name webapp -p 8000:8000 --rm $IMAGE_ID
           sleep 10
 
       - name: Test HTTPS connection
