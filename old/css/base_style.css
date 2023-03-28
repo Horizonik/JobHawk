@@ -12,8 +12,8 @@
 :root {
     --primary-color: #00f088;
     --accent-color: #12c87b;
-    --dark-bg-color: #1c1c1c;
-    --light-bg-color: #282828;
+    --sub-dark-color: #1c1c1c;
+    --lighter-background-color: #282828;
 
     /* Text Colouring */
     --strong-text-color: #f7f7f7;
@@ -64,7 +64,7 @@ body {
     font-family: var(--body-font);
     font-size: 1rem;
     color: var(--weak-text-color);
-    background-color: var(--dark-bg-color);
+    background-color: var(--sub-dark-color);
     transition: background-color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -94,7 +94,7 @@ p {
 
 /* Header */
 header {
-    background-color: var(--light-bg-color);
+    background-color: var(--lighter-background-color);
     padding: 1rem 0;
     position: fixed;
     top: 0;
@@ -144,7 +144,7 @@ nav {
 
 /* Footer */
 footer {
-    background-color: var(--dark-bg-color);
+    background-color: var(--sub-dark-color);
     color: var(--weak-text-color);
     padding: 1rem 0;
     text-align: center;

@@ -49,14 +49,16 @@
 
 
 // ResultsPage.js (update)
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, useContext} from 'react';
 import JobCard from '../components/JobCard';
 import axios from 'axios';
+import LoadingContext from '../contexts/LoadingContext';
+
 
 const ResultsPage = ({searchQuery}) => {
+    const { setLoading, loading } = useContext(LoadingContext);
     const [jobs, setJobs] = useState([]);
     const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
 
     const fetchJobs = useCallback(async () => {

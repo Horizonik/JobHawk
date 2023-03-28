@@ -24,7 +24,7 @@
 
 /* Features Section */
 .features {
-    background-color: var(--light-bg-color);
+    background-color: var(--lighter-background-color);
     padding: 3rem 0;
 }
 
