@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-webapp
+  template:
+    metadata:
+      labels:
+        app: my-webapp
+    spec:
+      containers:
+        - name: my-webapp
+          image: my-webapp:latest
+          ports:
+            - containerPort: 8000
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000

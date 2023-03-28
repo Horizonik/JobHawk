@@ -1,55 +1,38 @@
-# Use a lightweight Python image as the base
-FROM python:3.11-slim-buster
+# Stage 1: Build React frontend
+FROM node:14 as frontend-builder
+WORKDIR /app/frontend
+COPY ./frontend/package*.json ./
+RUN npm ci
+COPY ./frontend .
+RUN npm run build
 
-# Set the working directory
-WORKDIR /app
+# Stage 2: Build Django backend
+FROM python:3.10.10-slim-buster
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV APP_HOME /app
 
-# Get env variables from github actions secrets
-ARG ENV_VARIABLES
+RUN useradd --create-home appuser
+WORKDIR $APP_HOME
 
-# Set the values of ENV variables to the ARG values
-ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
-ENV DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
-ENV DJANGO_DEBUG=${DJANGO_DEBUG}
-ENV DJANGO_SECURE_SSL_REDIRECT=${DJANGO_SECURE_SSL_REDIRECT}
-ENV DJANGO_SESSION_COOKIE_HTTPONLY=${DJANGO_SESSION_COOKIE_HTTPONLY}
+# Install system dependencies
+RUN apt-get update && apt-get install -y build-essential libpq-dev openssl && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install any needed packages specified in requirements.txt
-COPY requirements.txt .
+# Copy the requirements file and install Python dependencies
+COPY ./backend/requirements.txt $APP_HOME/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Node.js and npm for the frontend
-RUN apt-get update && apt-get install -y nodejs npm
+COPY ./backend $APP_HOME
+COPY --from=frontend-builder /app/frontend/build $APP_HOME/static
 
-# Copy the frontend and backend code into the container
-COPY frontend /app/frontend
-COPY backend /app/backend
+# Generate a self-signed SSL certificate
+RUN openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -subj "/C=US/ST=CA/L=SF/O=YourOrg/OU=YourOU/CN=localhost" -nodes
+RUN mkdir certs && mv key.pem cert.pem certs
 
-# Install the frontend dependencies and build the production bundle
-WORKDIR /app/frontend
-RUN npm install && npm run build
+# Change the ownership of the app directory to the non-root user
+RUN chown -R appuser:appuser $APP_HOME
+USER appuser
 
-# Copy the production bundle to the backend
-WORKDIR /app/backend
-RUN mkdir -p static && cp -r ../frontend/build/* static/
+EXPOSE 8000
 
-# Expose the port used by nginx
-EXPOSE 80
-EXPOSE 443
-
-# Install nginx and configure it to serve the app with HTTPS
-RUN apt-get update && apt-get install -y nginx openssl
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY certs/ssl.crt /etc/ssl/certs/nginx.crt
-COPY certs/ssl.key /etc/ssl/private/nginx.key
-RUN rm /etc/nginx/sites-enabled/default
-
-# Copy the gunicorn configuration file into the container
-COPY gunicorn.conf /app/gunicorn.conf
-
-# Copy the start script into the container
-COPY start.sh /app/start.sh
-RUN chmod +x /app/start.sh
-
-# Start the app with the start script
-CMD ["/app/start.sh"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "--certfile", "certs/cert.pem", "--keyfile", "certs/key.pem", "backend.wsgi:application"]

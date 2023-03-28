@@ -1,46 +1,46 @@
-name: Docker Image CI
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-  build:
+  build-test-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      # Checkout the repository
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      # Build the backend Docker image
-      - name: Build backend Docker image
-        run: |
-          docker build \
-            --build-arg ENV_VARIABLES="DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }},\
-              DJANGO_ALLOWED_HOSTS=${{ secrets.DJANGO_ALLOWED_HOSTS }},\
-              DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }},\
-              DJANGO_SECURE_SSL_REDIRECT=${{ secrets.DJANGO_SECURE_SSL_REDIRECT }},\
-              DJANGO_SESSION_COOKIE_HTTPONLY=${{ secrets.DJANGO_SESSION_COOKIE_HTTPONLY }}" \
-            --file Dockerfile \
-            --tag gemesil/jobhawk-backend:latest \
-            .
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
-      # Start the backend container and test the connection
-      - name: Test backend connection
-        run: |
-          docker run --name backend-test -d -p 80:80 gemesil/jobhawk-backend:latest
-          sleep 10 # Wait for the server to start
-          curl --retry 5 --retry-connrefused http://127.0.0.1:80/
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
 
-      # Build the frontend Docker image
-      - name: Build frontend Docker image
-        run: |
-          docker build -t gemesil/jobhawk-frontend:latest frontend
+      - name: Build Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: false
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
 
-      # Start the frontend container and test the connection
-      - name: Test frontend connection
+      - name: Run Docker container
         run: |
-          docker run --name frontend-test -d -p 3000:3000 gemesil/jobhawk-frontend:latest
-          sleep 10 # Wait for the server to start
-          curl --retry 5 --retry-connrefused http://127.0.0.1:3000/
+          docker run -d --name webapp -p 8000:8000 --rm <IMAGE_ID_FROM_PREVIOUS_STEP>
+          sleep 10
+
+      - name: Test HTTPS connection
+        run: |
+          curl --insecure https://localhost:8000
+          docker stop webapp
