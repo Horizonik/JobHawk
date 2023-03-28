@@ -64,8 +64,8 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "display/../../old/templates"],
-        'APP_DIRS': True,
+        'DIRS': [BASE_DIR / "static"],
+        'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -120,8 +120,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # http://docs.djangoproject.com/en/4.1/howto/static-files/
-
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # http://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -215,6 +213,12 @@ SAML_AUTH = {
 }
 
 # Corsheaders
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
 ]
