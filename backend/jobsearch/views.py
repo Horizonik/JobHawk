@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from rest_framework import generics, filters
 
 from .models import Job
 from .serializers import JobSerializer
+from rest_framework import viewsets
 
 
 @login_required
@@ -18,8 +18,7 @@ def saml_auth(request):
     return JsonResponse(user_data)
 
 
-class JobList(generics.ListCreateAPIView):
-    queryset = Job.objects.all()
+@login_required
+class JobView(viewsets.ModelViewSet):
     serializer_class = JobSerializer
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['title', 'description', 'company', 'location']
+    queryset = Job.objects.all()
