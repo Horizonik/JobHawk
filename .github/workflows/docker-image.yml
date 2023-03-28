@@ -21,7 +21,7 @@ jobs:
           node-version: 14
 
       - name: Install dependencies
-        run: npm ci --prefix ./frontend
+        run: npm install --prefix ./frontend
 
       - name: Build React frontend
         run: npm run build --prefix ./frontend
