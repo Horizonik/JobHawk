@@ -9,13 +9,18 @@
     src: url('design/Montserrat-Light.ttf') format('truetype');
 }
 
+/* 949494  03dac5  ff4181*/
 :root {
     --primary-color: #00f088;
-    --accent-color: #18e68d;
-    --dark-bg-color: #0f0f0f;
-    --light-bg-color: #1b1b1b;
-    --info-color: #f0c808;
+    --accent-color: #0ac085db;
+    --dark-background-color: #121212;
+    --sub-dark-color: #222222;
+    --lighter-background-color: rgba(4, 66, 43, 0.86);
+    --info-color: #949494;
     --text-color: #f0f0f0;
+    --grey-text-color: #9f9f9f;
+    --highlighted-text: #bb86fb;
+    --highlighted-text-hover: #dbbeff;
     --body-font: Montserrat Light, sans-serif;
     --heading-font: Montserrat, Segoe UI, sans-serif;
 }
@@ -28,24 +33,20 @@
 }
 
 body {
-    background-color: var(--dark-bg-color);
+    background-color: var(--dark-background-color);
     color: var(--text-color);
     line-height: 1.5;
 }
 
 .container {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px;
+    padding: 100px 40px 40px;
 }
 
 h1, h2, h3 {
+    text-transform: capitalize;
     color: var(--primary-color);
     margin-bottom: 20px;
-}
-
-h1 {
-    transition: all 500ms;
 }
 
 p {
@@ -55,49 +56,59 @@ p {
 
 .header {
     text-align: center;
-    margin-bottom: 40px;
+}
+
+header {
+    background: linear-gradient(180deg, rgba(0, 240, 136, 0.05) 0%, rgba(0, 0, 0, 0) 100%);
+    position: fixed;
+    width: 100%;
 }
 
 .search-container {
+    position: relative;
     display: flex;
     align-items: center;
-    border: 2px solid var(--accent-color);
+
+    border: none;
     border-radius: 6px;
+
     padding: 10px 7px;
-    margin-bottom: 40px;
+
+    box-shadow: 0 0 1px var(--accent-color);
+    transition: 0.3s;
 }
 
 .search-input {
     flex-grow: 1;
     background: transparent;
     border: none;
-    color: var(--text-color);
-    font-size: 18px;
+    color: var(--grey-text-color);
+    font-size: 28px;
     padding: 10px;
     outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.search-button {
-    background-color: var(--accent-color);
-    border: none;
-    border-radius: 5px;
-    color: var(--text-color);
-    font-size: 18px;
-    padding: 10px 20px;
-    cursor: pointer;
     transition: 0.3s;
 }
 
+.search-button {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 28px;
+    padding: 10px 20px;
+    cursor: pointer;
+
+    transition: 0.2s ease-in-out;
+}
+
 .search-button:hover {
-    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
 }
 
 .info-section {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-bottom: 40px;
 
     opacity: 1;
     visibility: visible;
@@ -105,20 +116,19 @@ p {
     transition: opacity 0.5s, visibility 0.5s, max-height 0.5s;
 }
 
-.info-section-hidden {
-    opacity: 0;
-    visibility: hidden;
-    max-height: 0;
-}
-
 .info-box {
     flex-basis: 49%;
-    background-color: var(--light-bg-color);
     padding: 20px;
+    box-shadow: 0 0 1px var(--accent-color);
     border-radius: 6px;
-    box-shadow: inset 0 0 5px var(--dark-bg-color);
     margin-bottom: 20px;
     user-select: none;
+
+    transition: 0.5s;
+}
+
+.info-box:hover {
+    box-shadow: 0 0 1px var(--primary-color);
 }
 
 .info-box h3 {
@@ -135,7 +145,6 @@ p {
 }
 
 .navbar {
-    background-color: var(--dark-bg-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -149,6 +158,8 @@ p {
 }
 
 .navbar-links {
+    box-sizing: border-box;
+    padding: 10px;
     display: flex;
     gap: 20px;
 }
@@ -158,25 +169,29 @@ a, a:hover {
 }
 
 .navbar-link {
+    text-transform: uppercase;
     font-size: 16px;
-    color: var(--text-color);
+    font-family: "Montserrat", serif;
+    color: var(--grey-text-color);
     text-decoration: none;
     transition: all 300ms;
+
+    font-weight: lighter;
 }
 
 .navbar-link:hover,
 .navbar-link:active {
-    color: var(--accent-color);
+    color: var(--primary-color);
 }
 
 .footer {
-    background-color: var(--dark-bg-color);
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
     font-size: 14px;
     user-select: none;
+    color: var(--grey-text-color);
 }
 
 .info-box {
@@ -191,13 +206,7 @@ a, a:hover {
 }
 
 .search-input:focus {
-    border-color: var(--accent-color);
-    box-shadow: 0 0 5px rgba(var(--accent-color), 0.5);
-}
-
-.search-button:focus {
-    background-color: var(--primary-color);
-    outline: none;
+    color: var(--text-color);
 }
 
 .navbar-link:focus {
@@ -237,8 +246,8 @@ a, a:hover {
     transition: transform 0.5s;
 }
 
-.search-container {
-    position: relative;
+.search-container:focus-within {
+    box-shadow: 0 0 1px var(--primary-color);
 }
 
 .search-focused .search-input,
@@ -260,4 +269,28 @@ a, a:hover {
     height: auto;
     transition: 0.5s;
 
+}
+
+.separator {
+    box-sizing: border-box;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    width: 100%;
+
+    height: 1px;
+    background: var(--lighter-background-color);
+    border-radius: 6px;
+}
+
+.spinning {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
