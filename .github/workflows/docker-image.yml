@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14
 
@@ -27,7 +27,7 @@ jobs:
         run: npm run build --prefix ./frontend
 
       - name: Archive frontend build artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: frontend-build
           path: frontend/build
@@ -37,10 +37,10 @@ jobs:
     needs: build-frontend
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: 3.10.10
 
@@ -55,10 +55,10 @@ jobs:
     needs: build-backend
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkoutdocker run -d --name webapp -p 8000:8000 --rm ${{ steps.docker_build.outputs.image }}
 
       - name: Download frontend build artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: frontend-build
           path: frontend/build
