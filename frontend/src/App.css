@@ -44,6 +44,10 @@ h1, h2, h3 {
     margin-bottom: 20px;
 }
 
+h1 {
+    transition: all 500ms;
+}
+
 p {
     font-size: 18px;
     margin-bottom: 20px;
@@ -58,7 +62,7 @@ p {
     display: flex;
     align-items: center;
     border: 2px solid var(--accent-color);
-    border-radius: 10px;
+    border-radius: 6px;
     padding: 10px 7px;
     margin-bottom: 40px;
 }
@@ -111,9 +115,10 @@ p {
     flex-basis: 49%;
     background-color: var(--light-bg-color);
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    box-shadow: inset 0 0 5px var(--dark-bg-color);
     margin-bottom: 20px;
+    user-select: none;
 }
 
 .info-box h3 {
@@ -148,17 +153,20 @@ p {
     gap: 20px;
 }
 
+a, a:hover {
+    text-decoration: none;
+}
+
 .navbar-link {
     font-size: 16px;
     color: var(--text-color);
     text-decoration: none;
-    transition: color 0.3s, text-shadow 0.3s;
+    transition: all 300ms;
 }
 
 .navbar-link:hover,
 .navbar-link:active {
     color: var(--accent-color);
-    text-shadow: 0 0 2px var(--accent-color);
 }
 
 .footer {
@@ -168,6 +176,7 @@ p {
     align-items: center;
     padding: 20px;
     font-size: 14px;
+    user-select: none;
 }
 
 .info-box {
