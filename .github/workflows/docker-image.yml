@@ -71,7 +71,7 @@ jobs:
 
       - name: Start Docker container
         run: |
-          docker run -d -p 8000:8000 my-web-app
+          docker run -d -t -p 8000:8000 my-web-app
           sleep 5
 
       - name: Test Docker container
