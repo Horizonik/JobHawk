@@ -38,7 +38,7 @@ jobs:
 
       - name: Run Docker container
         run: |
-          docker run -d --name webapp -p 8000:8000 --rm ${{ steps.docker_build.outputs.digest }}
+          docker run -d --name webapp -p 8000:8000 --rm ${{ steps.docker_build.outputs.image }}
           sleep 10
 
       - name: Test HTTPS connection
