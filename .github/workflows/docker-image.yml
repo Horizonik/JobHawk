@@ -39,7 +39,7 @@ jobs:
 
       - name: Run Docker container
         run: |
-          docker load < ${{ steps.docker_build.outputs.export-cache }}
+          echo "${{ steps.docker_build.outputs.export-cache }}" | docker load
           IMAGE_ID=$(docker images -q --filter=dangling=false | head -n 1)
           docker run -d --name webapp -p 8000:8000 --rm $IMAGE_ID
           sleep 10
