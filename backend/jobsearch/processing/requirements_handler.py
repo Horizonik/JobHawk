@@ -2,7 +2,7 @@ import pandas as pd
 import spacy
 from collections import Counter
 
-from backend.processing.preprocessing import preprocess_job
+from .preprocessing import preprocess_job
 
 nlp = spacy.load('en_core_web_sm')
 

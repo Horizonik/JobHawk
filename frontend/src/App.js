@@ -5,8 +5,10 @@ import Error404 from './errorPages/Error404';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
-import ResultsPage from "./pages/ResultsPage";
+import ResultsPage from "./pages/JobList";
 import LoadingContext from "./contexts/LoadingContext";
+import Error500 from "./errorPages/Error500";
+import Error502 from "./errorPages/Error502";
 
 const App = () => {
     const [searchValue, setSearchValue] = useState('');
@@ -50,8 +52,10 @@ const App = () => {
                                 }
                             />
                             <Route path="/results" element={<ResultsPage/>}/>
-                            <Route path="/error/404" element={<Error404/>}/>
-                            <Route path="*" element={<Error404/>}/>
+
+                            <Route path="/error/404" component={Error404} />
+                            <Route path="/error/500" component={Error500} />
+                            <Route path="/error/502" component={Error502} />
                         </Routes>
                         <Footer/>
                     </div>
