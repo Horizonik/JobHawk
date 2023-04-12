@@ -1,6 +1,6 @@
 import React from 'react';
 import InfoSection from '../components/InfoSection';
-import ResultsPage from '../pages/ResultsPage';
+import ResultsPage from './JobList';
 
 const HomePage = ({
                       searchValue, handleSearchInput, handleSearchKeyPress, handleSearch, searchFocused,
@@ -25,9 +25,9 @@ const HomePage = ({
             </div>
         </div>
         <div className="separator"></div>
-        <InfoSection searchFocused={searchFocused}/>
+        <InfoSection searchFocused={searchFocused} />
         {searchFocused && (<div className="results-section">
-            <ResultsPage/>
+            <ResultsPage />
         </div>)}
     </>);
 };

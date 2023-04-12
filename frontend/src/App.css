@@ -1,12 +1,12 @@
 /* Define variables for repeated colors and spacing */
 @font-face {
     font-family: "Montserrat";
-    src: url('design/Montserrat-Regular.ttf') format('truetype');
+    src: url('design/fonts/Montserrat-Regular.ttf') format('truetype');
 }
 
 @font-face {
     font-family: "Montserrat Light";
-    src: url('design/Montserrat-Light.ttf') format('truetype');
+    src: url('design/fonts/Montserrat-Light.ttf') format('truetype');
 }
 
 /* 949494  03dac5  ff4181*/
@@ -35,7 +35,9 @@
 body {
     background-color: var(--dark-background-color);
     color: var(--text-color);
-    line-height: 1.5;
+    line-height: 1.4;
+    font-size: 18px;
+    padding: 0 10px
 }
 
 .container {
@@ -46,6 +48,7 @@ body {
 h1, h2, h3 {
     text-transform: capitalize;
     color: var(--primary-color);
+    line-height: 1.2;
     margin-bottom: 20px;
 }
 
@@ -106,29 +109,20 @@ header {
 }
 
 .info-section {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-
     opacity: 1;
     visibility: visible;
     max-height: 1000px;
+
+    padding: 0px 10px;
+    margin: 40px auto;
+
     transition: opacity 0.5s, visibility 0.5s, max-height 0.5s;
 }
 
 .info-box {
-    flex-basis: 49%;
-    padding: 20px;
-    box-shadow: 0 0 1px var(--accent-color);
-    border-radius: 6px;
-    margin-bottom: 20px;
+    padding: 20px 0;
+    margin: 20px auto;
     user-select: none;
-
-    transition: 0.5s;
-}
-
-.info-box:hover {
-    box-shadow: 0 0 1px var(--primary-color);
 }
 
 .info-box h3 {
@@ -192,11 +186,6 @@ a, a:hover {
     font-size: 14px;
     user-select: none;
     color: var(--grey-text-color);
-}
-
-.info-box {
-    flex: 0 0 100%;
-    margin-bottom: 20px;
 }
 
 @media (min-width: 768px) {

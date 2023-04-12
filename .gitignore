@@ -132,3 +132,6 @@ dmypy.json
 .idea/*
 !.idea/rcb-settings.xml
 .idea/*
+
+.staticfiles
+staticfiles/
