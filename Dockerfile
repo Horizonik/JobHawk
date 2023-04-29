@@ -8,15 +8,24 @@ RUN npm run build
 
 # Stage 2: Build Django backend
 FROM python:3.10.10-slim-buster
+
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+
+# Env vars for our django settings
+ENV DJANGO_SECRET_KEY django-insecure-#t8stlw!mo08i53#0zqve&(tp4m#k#v)ypj)^gl*2qi-%gtbex
+ENV DJANGO_ALLOWED_HOSTS 127.0.0.1
+ENV DJANGO_DEBUG 0
+ENV DJANGO_SECURE_SSL_REDIRECT False
+ENV DJANGO_SESSION_COOKIE_HTTPONLY False
+
 ENV APP_HOME /app
 
 RUN useradd --create-home appuser
 WORKDIR $APP_HOME
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y build-essential libpq-dev openssl && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y build-essential libpq-dev openssl python-dev python3-dev default-libmysqlclient-dev python3-mysqldb && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy the requirements file and install Python dependencies
 COPY ./backend/requirements.txt $APP_HOME/requirements.txt

@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI/CD
 
 on:
   push:
@@ -52,7 +52,7 @@ jobs:
       - name: Run tests
         run: python -m unittest discover -s backend -p '*_test.py'
 
-  build-docker:
+  test-docker:
     runs-on: ubuntu-latest
     needs: build-backend
     if: ${{ always() || failure() || github.event_name == 'push' && contains(github.event.head_commit.modified, 'Dockerfile') }}
