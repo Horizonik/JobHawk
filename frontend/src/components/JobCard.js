@@ -6,7 +6,9 @@ const JobCard = ({ job }) => {
             <h3>{job.title}</h3>
             <p>{job.company}</p>
             <p>{job.location}</p>
-            <p>{job.skills.join(', ')}</p>
+            <p>{job.description}</p>
+            <p>{job.requirements}</p>
+            <p>{job.related_keywords}</p>
             <a href={job.url} target="_blank" rel="noopener noreferrer">
                 Apply Now
             </a>

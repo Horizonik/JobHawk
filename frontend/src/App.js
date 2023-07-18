@@ -1,68 +1,53 @@
-import React, {useState} from 'react';
+import axios from "axios";
+import React from 'react';
 import './App.css';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import Error404 from './errorPages/Error404';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import HomePage from './pages/HomePage';
-import ResultsPage from "./pages/JobList";
-import LoadingContext from "./contexts/LoadingContext";
-import Error500 from "./errorPages/Error500";
-import Error502 from "./errorPages/Error502";
+import JobCard from "./components/JobCard";
+import HomePage from "./pages/HomePage";
 
-const App = () => {
-    const [searchValue, setSearchValue] = useState('');
-    const [searchFocused, setSearchFocused] = useState(false);
-
-    const handleSearch = () => {
-        if (searchValue.trim() !== '') {
-            setSearchFocused(true);
-        }
-    };
-
-    const handleSearchInput = (event) => {
-        setSearchValue(event.target.value);
-    };
-
-    const handleSearchKeyPress = (event) => {
-        if (event.key === 'Enter') {
-            handleSearch();
-        }
-    };
-
-    const [loading, setLoading] = useState(false);
-
-    return (
-        <LoadingContext.Provider value={{loading, setLoading}}>
-            <Router>
-                <div className="App">
-                    <Navbar/>
-                    <div className="container">
-                        <Routes>
-                            <Route
-                                path="/"
-                                element={
-                                    <HomePage
-                                        searchValue={searchValue}
-                                        handleSearchInput={handleSearchInput}
-                                        handleSearchKeyPress={handleSearchKeyPress}
-                                        handleSearch={handleSearch}
-                                        searchFocused={searchFocused}
-                                    />
-                                }
-                            />
-                            <Route path="/results" element={<ResultsPage/>}/>
-
-                            <Route path="/error/404" component={Error404} />
-                            <Route path="/error/500" component={Error500} />
-                            <Route path="/error/502" component={Error502} />
-                        </Routes>
-                        <Footer/>
-                    </div>
-                </div>
-            </Router>
-        </LoadingContext.Provider>
-    );
+const tasksGridStyle = {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+    gap: '20px',
+    alignItems: 'start',
 };
+
+const pageMarginStyle = {
+    margin: '60px 30px 30px 30px',
+}
+
+class App extends React.Component {
+    state = {
+        details: [],
+    }
+
+    componentDidMount() {
+        let data;
+        axios.get('http://localhost:8000')
+            .then(res => {
+                data = res.data;
+                this.setState({
+                    details: data
+                });
+            })
+            .catch(err => {
+            })
+    }
+
+    render() {
+        return (
+            <div style={pageMarginStyle}>
+                {<HomePage />}
+
+                <header>Data Generated From Django</header>
+                <hr />
+                <div style={tasksGridStyle}>
+                    {this.state.details.map((output, id) => (
+                        <JobCard key={id} job={output} />
+                    ))}
+                </div>
+            </div>
+        );
+    }
+}
 
 export default App;

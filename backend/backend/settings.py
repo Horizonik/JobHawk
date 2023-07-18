@@ -41,6 +41,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,8 +50,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'jobsearch',
     'corsheaders',
-    'rest_framework',
-    'djangosaml2',
 ]
 
 MIDDLEWARE = [
@@ -62,16 +61,21 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'jobsearch.custom_error_middleware.CustomErrorMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny'
+    ]
+}
 
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "static"],
-        'APP_DIRS': False,
+        'DIRS': [],
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -90,12 +94,8 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'jobhawk_db',
-        'USER': 'ofekbu',
-        'PASSWORD': 'Fuckoff101',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -137,99 +137,9 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Enable http and set a secure cookie flag
-# SESSION_COOKIE_HTTPONLY = bool(os.environ.get('DJANGO_SESSION_COOKIE_HTTPONLY', False))
-# SECURE_SSL_REDIRECT = bool(os.environ.get('DJANGO_SECURE_SSL_REDIRECT', False))
-SECURE_SSL_REDIRECT = False
-SESSION_COOKIE_HTTPONLY = False
-
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-
-# Enable XSS protection for supported browsers
-SECURE_BROWSER_XSS_FILTER = True
-
-# Enable content type sniffing protection for supported browsers
-SECURE_CONTENT_TYPE_NOSNIFF = True
-
-# Enable HSTS headers to force http on future requests
-SECURE_HSTS_SECONDS = 31536000
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
-
-# SAML
-SAML_BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-LOGIN_REDIRECT_URL = 'http://localhost:3000/saml-redirect'
-LOGIN_URL = '/saml2/login/'
-LOGOUT_URL = '/saml2/logout/'
-
-AUTHENTICATION_BACKENDS = [
-    'jobsearch.backends.SAMLAuthenticationBackend',
-]
-
-SAML_CONFIG = {
-    'xmlsec_binary': '/usr/bin/xmlsec1',  # Path to the xmlsec1 binary
-    'entityid': 'http://localhost:8000/metadata',  # Replace with your Django app's domain
-    'attribute_map_dir': os.path.join(os.path.dirname(saml2.__file__), 'attributemaps'),
-    'nameid_format': 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
-    'idp': {
-        'http://adfs.example.com/metadata': {  # Replace with your ADFS metadata URL
-            'metadata': {
-                'local': [os.path.join(BASE_DIR, 'metadata.xml')],  # Update the path to your local metadata file
-            },
-            'single_sign_on_service': {
-                'binding': 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
-                'location': 'http://adfs.example.com/SSO',  # Replace with your ADFS SSO URL
-            },
-            'single_logout_service': {
-                'binding': 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
-                'location': 'http://adfs.example.com/Logout',  # Replace with your ADFS logout URL
-            },
-            'x509cert': 'CERTIFICATE_DATA_HERE',  # Replace with your ADFS public certificate data
-        },
-    },
-}
-
-SAML_AUTH = {
-    'strict': True,
-    'debug': False,
-    'entity_id': 'http://localhost:8000/metadata',
-    'nameid_format': NAMEID_FORMAT_UNSPECIFIED,
-    'service': {
-        'sp': {
-            'name': 'Django SAML Service Provider',
-            'endpoints': {
-                'assertion_consumer_service': [
-                    ('http://localhost:8000/acs/', BINDING_HTTP_POST),
-                ],
-                'single_logout_service': [
-                    ('http://localhost:8000/ls/', BINDING_HTTP_REDIRECT),
-                    ('http://localhost:8000/ls/post/', BINDING_HTTP_POST),
-                ],
-            },
-            'required_attributes': ['uid'],
-            'optional_attributes': ['email', 'first_name', 'last_name'],
-        },
-    },
-    'security': {
-        'authn_requests_signed': False,
-        'logout_requests_signed': True,
-        'logout_responses_signed': True,
-        'want_assertions_signed': True,
-        'want_response_signed': False,
-    },
-    'metadata': {
-        'local': [os.path.join(SAML_BASE_DIR, 'metadata.xml')],
-    },
-}
-
-# Corsheaders
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = BASE_DIR / 'static'
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-]
+CORS_ORIGIN_ALLOW_ALL = True
+
+DATE_INPUT_FORMATS = ['%d/%m/%Y']
