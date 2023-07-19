@@ -1,8 +1,8 @@
 import React from 'react';
 
-const InfoSection = ({searchFocused}) => {
+const InfoSection = () => {
     return (
-        <div className={`info-section ${searchFocused ? 'fadeOut' : 'fadeIn'}`}>
+        <div className="info-section">
             <div className="info-box">
                 <h2>Introduction</h2>
                 <p>JobHawk is a web app that enables users to quickly find jobs they're best suited for.
