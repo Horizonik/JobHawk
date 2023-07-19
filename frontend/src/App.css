@@ -109,11 +109,15 @@ header {
 }
 
 .info-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0 70px;
+
     opacity: 1;
     visibility: visible;
     max-height: 1000px;
 
-    padding: 0px 10px;
+    padding: 0 10px;
     margin: 40px auto;
 
     transition: opacity 0.5s, visibility 0.5s, max-height 0.5s;

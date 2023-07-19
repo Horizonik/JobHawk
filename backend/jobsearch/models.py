@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Job(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=60)
     company = models.CharField(max_length=50)
     location = models.CharField(max_length=80)
