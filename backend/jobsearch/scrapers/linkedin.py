@@ -1,16 +1,15 @@
-import os
-
 import requests
-from bs4 import BeautifulSoup
+import os
 import json
 import pandas as pd
+from bs4 import BeautifulSoup
 
-headers = {'User-Agent': 'JobHawk'}
+HEADERS = {'User-Agent': 'JobHawk'}
 
 
 def get_job_listings(keywords: str) -> list[dict] | None:
     url = f'https://www.linkedin.com/jobs/search?keywords={keywords}'
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=HEADERS)
 
     if response.status_code != 200:
         print(f"Error retrieving page: {response.status_code}")
@@ -23,17 +22,12 @@ def get_job_listings(keywords: str) -> list[dict] | None:
         print("No results for keywords")
         return None
 
-    # extract data for every job listing and save in list of dicts
     jobs = []
-
     for job in job_listings:
         title = job.select_one('h3.base-search-card__title').text.strip()
-
         company_element = job.select_one('h4.base-search-card__subtitle a')
         company = company_element.text.strip() if company_element and company_element.text.strip() else None
-
         location = job.select_one('span.job-search-card__location').text.strip()
-
         description_page = job.find('a')
         url = description_page.get('href') if description_page else None
         description = get_job_description(url) if url else None
@@ -45,7 +39,6 @@ def get_job_listings(keywords: str) -> list[dict] | None:
             'description': description,
             'url': url
         }
-
         jobs.append(job_info)
 
     return jobs
@@ -57,7 +50,6 @@ def get_job_description(description_page_url: str) -> str | None:
 
     soup = BeautifulSoup(html_content, 'html.parser')
 
-    # Try to get the job description from the JSON-LD script tag
     job_description_container = soup.find("script", {"type": "application/ld+json"})
     if job_description_container:
         json_data = json.loads(job_description_container.string)
@@ -66,7 +58,6 @@ def get_job_description(description_page_url: str) -> str | None:
             cleaned_description = BeautifulSoup(job_description, 'html.parser').get_text(separator=' ')
             return cleaned_description
 
-    # Try to get the job description from the div element containing the description
     job_description_container = soup.find("div", class_="show-more-less-html__markup")
     if job_description_container:
         cleaned_description = job_description_container.get_text(separator=' ').strip()
@@ -75,31 +66,7 @@ def get_job_description(description_page_url: str) -> str | None:
     return None
 
 
-# def get_job_description(description_page_url: str) -> str | None:
-#     response = requests.get(description_page_url)
-#     html_content = response.content
-#
-#     soup = BeautifulSoup(html_content, 'html.parser')
-#
-#     # Try to get the job description from the JSON-LD script tag
-#     job_description_container = soup.find("script", {"type": "application/ld+json"})
-#     if job_description_container:
-#         json_data = json.loads(job_description_container.string)
-#         job_description = json_data.get("description")
-#         if job_description:
-#             return job_description
-#
-#     # Try to get the job description from the div element containing the description
-#     job_description_container = soup.find("div", class_="show-more-less-html__markup")
-#     if job_description_container:
-#         return job_description_container.text.strip()
-#
-#     return None
-
-
 def jobs_to_dataframe(job_listings: list[dict]) -> pd.DataFrame:
-    """Convert job listings list into a dataframe"""
-
     df = pd.DataFrame(job_listings)
     df.fillna('-', inplace=True)
     return df
@@ -123,7 +90,3 @@ def get_jobs_for_keyword(keyword: str, location: str) -> pd.DataFrame:
 def save_data_to_excel(df, file_path):
     with pd.ExcelWriter(file_path) as writer:
         df.to_excel(writer, index=False)
-
-#
-# if __name__ == '__main__':
-#

@@ -2,14 +2,7 @@ import pandas as pd
 import spacy
 from collections import Counter
 
-from .preprocessing import preprocess_job
-
 nlp = spacy.load('en_core_web_sm')
-
-"""
-Calculates the requirements for the job based on the description and title,
-Use the calculate_requirements() func to start the chain of calculations
-"""
 
 
 def extract_skills(text: str) -> list:
@@ -40,11 +33,6 @@ def extract_title(job_title: str) -> str:
 
 
 def rank_skills(description: str, job_title: str) -> list[str]:
-    """
-    Uses multiple different extractions and ranks the words that came up
-    based on how many times they came up, the top 5 words are taken as requirements
-    """
-
     skills = extract_skills(description)
     keywords = extract_keywords(description)
     title = extract_title(job_title)
@@ -55,8 +43,6 @@ def rank_skills(description: str, job_title: str) -> list[str]:
 
 
 def calculate_requirements(dataset: pd.DataFrame) -> pd.DataFrame:
-    """Adds a requirements' column, that contains the requirements extracted with nlp"""
-
     dataset['description'] = dataset['description'].apply(lambda job_desc: preprocess_job(job_desc, False))
     dataset['requirements'] = dataset.apply(lambda row: rank_skills(row['description'], row['title']), axis=1)
     return dataset
